@@ -5,40 +5,44 @@
 
 ```
 function transform( ele, attr, val ){
-				if (!ele.transform) {
-					ele.transform = {};
-				}
-				if ( typeof  val == "undefined") {
-					//获取transform
-					return ele.transform[attr];
-				}
-				//设置transform
-				var inner = "";
-				ele.transform[attr] = val;
-				for( var s in ele.transform){
-					switch (s){
-						case 'translateX':
-						case 'translateY':
-						case 'translateZ':
-							inner +=' '+s+'('+ele.transform[s] +'px)';
-							break;
-						case 'rotateX':
-						case 'rotateY':
-						case 'rotateZ':
-						case 'skewX':
-						case 'skewY':
-							inner += " "+s+"("+ ele.transform[s]+"deg)";
-							break;
-						case 'scaleX':
-						case 'scaleY':
-						case 'scale':
-							inner +=' '+ s +'('+ele.transform[s]+')';
-					}
-				}
-				ele.style.WebkitTransform = ele.style.transform = inner;
+	if (!ele.transform) {
+		ele.transform = {};
+	}
+	if ( typeof  val == "undefined") {
+		//获取transform
+		return ele.transform[attr];
+	}
+	//设置transform
+	var inner = "";
+	ele.transform[attr] = val;
+	for( var s in ele.transform){
+		switch (s){
+			case 'translateX':
+			case 'translateY':
+			case 'translateZ':
+				inner +=' '+s+'('+ele.transform[s] +'px)';
+			break;
+			case 'rotateX':
+			case 'rotateY':
+			case 'rotateZ':
+			case 'skewX':
+			case 'skewY':
+				inner += " "+s+"("+ ele.transform[s]+"deg)";
+			break;
+			case 'scaleX':
+			case 'scaleY':
+			case 'scale':
+				inner +=' '+ s +'('+ele.transform[s]+')';
 			}
+	}
+		ele.style.WebkitTransform = ele.style.transform = inner;
+}
 ```
 如果传入了第三个参数,那就是设置这个元素的tranform的某个属性;如果没有传入第三个参数,那就是获取这个元素的transform属性
+
 **注意:**
-在操作之前,先transform(ele,"translateZ",0);这是为了触发移动端的3d加载;然后transform(ele,"translateX",0);transform( ele, "tranlateY",0);这是因为,后面可能会获取元素的transform属性,如果一开始没有赋值,返回的是"undefined"...**谨记**
+
+在操作之前,先transform(ele,"translateZ",0);这是为了触发移动端的3d加载;然后transform(ele,"translateX",0);transform( ele, "tranlateY",0);这是因为,后面可能会获取元素的transform属性,如果一开始没有赋值,返回的是"undefined"...
+
+**谨记**
 
